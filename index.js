@@ -11,31 +11,31 @@ const generos=[
         url:"https://www.imdb.com/search/title/?genres=comedy",
     },
     {
-        name:"Sci-fi",
+        name:"sci-fi",
         url:"https://www.imdb.com/search/title/?genres=sci-fi",
     },
     {
-        name:"Horror",
+        name:"horror",
         url:"https://www.imdb.com/search/title/?genres=Horror",
     },
     {
-        name:"Romance",
+        name:"romance",
         url:"https://www.imdb.com/search/title/?genres=Romance",
     },
     {
-        name:"Action",
+        name:"action",
         url:"https://www.imdb.com/search/title/?genres=Action",
     },
     {
-        name:"Thriller",
+        name:"thriller",
         url:"https://www.imdb.com/search/title/?genres=Thriller",
     },
     {
-        name:"Drama",
+        name:"drama",
         url:"https://www.imdb.com/search/title/?genres=Drama",
     },
     {
-        name:"Mystery",
+        name:"mystery",
         url:"https://www.imdb.com/search/title/?genres=Mystery",
     },
     {
@@ -43,19 +43,19 @@ const generos=[
         url:"https://www.imdb.com/search/title/?genres=Crime" ,
     },
     {
-        name:"Animation" ,
+        name:"animation" ,
         url:"https://www.imdb.com/search/title/?genres=Animation",
     },
     {
-        name:"Adventure" ,
+        name:"adventure" ,
         url:"https://www.imdb.com/search/title/?genres=Adventure",
     },
     {
-        name:"Fantasy" ,
+        name:"fantasy" ,
         url:"https://www.imdb.com/search/title/?genres=Fantasy",
     },
     {
-        name:"Comedy-romance",
+        name:"comedy-romance",
         url:"https://www.imdb.com/search/title/?genres=Comedy-romance",
     },
     {
@@ -63,7 +63,7 @@ const generos=[
         url:"https://www.imdb.com/search/title/?genres=Action-comedy",
     },
     {
-        name:"Superhero",
+        name:"superhero",
         url:"https://www.imdb.com/search/title/?genres=Superhero",
     },
 
@@ -104,14 +104,37 @@ app.get("/topMovies",(req,res)=>{
 })
 
 
-app.get("/:nomeGenero",(req,res)=>{
+app.get("/popular/:nomeGenero",(req,res)=>{
+
+    const popularList = []
+
     const generoFilme = req.params.nomeGenero
 
     const generoUrl = generos.filter(genero =>genero.name==generoFilme)[0].url
+ 
     console.log("entrou em "+generoFilme)
-    const tempUrl = generoUrl + encodeURIComponent(Array)
-    res.json(tempUrl)
+    //const tempUrl = generoUrl + encodeURIComponent(Array)
+    //res.json(tempUrl)
+    axios.get(generoUrl)
+    .then((response)=>{
+        const html = response.data
+        const $ = cheerio.load(html)
+
+        $(".lister-item",html).each(function(){
+            const name = $(this).find(".lister-item-header").find("a").text()
+            const link = $(this).find(".lister-item-header").find("a").attr("href")
+            popularList.push({
+                "nome":name,
+                "link":"https://www.imdb.com/"+link,
+            })
+        })
+        res.json(popularList)
+    })
+
 
 })
 
 app.listen(PORT,() => console.log("server running on PORT ${PORT}"))
+
+
+ 
