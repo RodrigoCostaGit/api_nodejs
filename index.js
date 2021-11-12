@@ -77,7 +77,7 @@ app.get("/",(req,res) => {
     res.json("welcome to my imdb API ")
 })
 
-app.get("/topMovies",(req,res)=>{
+app.get("/topmovies",(req,res)=>{
     axios.get("https://www.imdb.com/chart/top/?ref_=nv_mv_250")
     .then((response) =>{
         const html = response.data
@@ -111,7 +111,6 @@ app.get("/popular/:nomeGenero",(req,res)=>{
     const generoFilme = req.params.nomeGenero
 
     const generoUrl = generos.filter(genero =>genero.name==generoFilme)[0].url
- 
     console.log("entrou em "+generoFilme)
     //const tempUrl = generoUrl + encodeURIComponent(Array)
     //res.json(tempUrl)
@@ -122,10 +121,18 @@ app.get("/popular/:nomeGenero",(req,res)=>{
 
         $(".lister-item",html).each(function(){
             const name = $(this).find(".lister-item-header").find("a").text()
+            const ano = $(this).find(".lister-item-year").text()
             const link = $(this).find(".lister-item-header").find("a").attr("href")
+            //const score = $(this).find(".ratings-bar").find(".ratings-imdb-rating").find("strong").text()
+            const score2 = $(this).find("strong").text()
+            const scoremeta=$(this).find(".metascore").text()
             popularList.push({
                 "nome":name,
+                "ano":ano,
+                "imbd score":score2,
+                "Metascore":scoremeta,
                 "link":"https://www.imdb.com/"+link,
+
             })
         })
         res.json(popularList)
