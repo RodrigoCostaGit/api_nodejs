@@ -56,15 +56,15 @@ const generos=[
     },
     {
         name:"comedy-romance",
-        url:"https://www.imdb.com/search/title/?genres=Comedy-romance",
+        url:"https://www.imdb.com/search/title/?genres=Comedy,romance",
     },
     {
         name:"action-comedy" ,
-        url:"https://www.imdb.com/search/title/?genres=Action-comedy",
+        url:"https://www.imdb.com/search/title/?genres=Action,comedy",
     },
     {
         name:"superhero",
-        url:"https://www.imdb.com/search/title/?genres=Superhero",
+        url:"https://www.imdb.com/search/keyword/?keywords=superhero",
     },
 
 
@@ -128,7 +128,7 @@ app.get("/popular/:nomeGenero",(req,res)=>{
             const scoremeta=$(this).find(".metascore").text()
             popularList.push({
                 "nome":name,
-                "ano":ano,
+                "ano":ano,  
                 "imbd score":score2,
                 "Metascore":scoremeta,
                 "link":"https://www.imdb.com/"+link,
@@ -145,3 +145,5 @@ app.listen(PORT,() => console.log("server running on PORT ${PORT}"))
 
 
  
+//idea: instead of having a full dict with genres and links, if the only thing that changes in the link itself is the keyword
+// have the user input add itself on the link and searchh using that.
