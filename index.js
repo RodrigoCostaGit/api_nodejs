@@ -5,72 +5,6 @@ const cheerio = require("cheerio");
 
 const app=express();
 
-const generos=[
-    {
-        name:"comedy",
-        url:"https://www.imdb.com/search/title/?genres=comedy",
-    },
-    {
-        name:"sci-fi",
-        url:"https://www.imdb.com/search/title/?genres=sci-fi",
-    },
-    {
-        name:"horror",
-        url:"https://www.imdb.com/search/title/?genres=Horror",
-    },
-    {
-        name:"romance",
-        url:"https://www.imdb.com/search/title/?genres=Romance",
-    },
-    {
-        name:"action",
-        url:"https://www.imdb.com/search/title/?genres=Action",
-    },
-    {
-        name:"thriller",
-        url:"https://www.imdb.com/search/title/?genres=Thriller",
-    },
-    {
-        name:"drama",
-        url:"https://www.imdb.com/search/title/?genres=Drama",
-    },
-    {
-        name:"mystery",
-        url:"https://www.imdb.com/search/title/?genres=Mystery",
-    },
-    {
-        name:"crime" ,
-        url:"https://www.imdb.com/search/title/?genres=Crime" ,
-    },
-    {
-        name:"animation" ,
-        url:"https://www.imdb.com/search/title/?genres=Animation",
-    },
-    {
-        name:"adventure" ,
-        url:"https://www.imdb.com/search/title/?genres=Adventure",
-    },
-    {
-        name:"fantasy" ,
-        url:"https://www.imdb.com/search/title/?genres=Fantasy",
-    },
-    {
-        name:"comedy-romance",
-        url:"https://www.imdb.com/search/title/?genres=Comedy,romance",
-    },
-    {
-        name:"action-comedy" ,
-        url:"https://www.imdb.com/search/title/?genres=Action,comedy",
-    },
-    {
-        name:"superhero",
-        url:"https://www.imdb.com/search/keyword/?keywords=superhero",
-    },
-
-
-]
-
-
 const movieList = []
 
 app.get("/",(req,res) => {
@@ -106,14 +40,13 @@ app.get("/topmovies",(req,res)=>{
 
 app.get("/popular/:nomeGenero",(req,res)=>{
 
+    const baseLink="https://www.imdb.com/search/title/?genres="
+
     const popularList = []
 
     const generoFilme = req.params.nomeGenero
 
-    const generoUrl = generos.filter(genero =>genero.name==generoFilme)[0].url
-    console.log("entrou em "+generoFilme)
-    //const tempUrl = generoUrl + encodeURIComponent(Array)
-    //res.json(tempUrl)
+    generoUrl=baseLink+generoFilme
     axios.get(generoUrl)
     .then((response)=>{
         const html = response.data
