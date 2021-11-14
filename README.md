@@ -2,7 +2,7 @@ O projeto consiste num API do website IMDb(https://www.imdb.com/), uma base de d
 
 O API de momento dá scrape a 2 páginas diferentes, no entanto, é possivel mudar o URL de forma a juntar tipos de filmes na pesquisa
 
-foi utilizado express, axios e cheerios para o desenvolvimento do projeto, a linguagem utilizada para o desenvolvimento foi javascript
+Foi utilizado express, axios e cheerios para o desenvolvimento do projeto, a linguagem utilizada para o desenvolvimento foi javascript
 
 As subpáginas que o projeto consegue dar scrape são:
     
@@ -13,7 +13,7 @@ As subpáginas para acedar aos dados são:
 * http://localhost:8000/topmovies
 * http://localhost:8000/popular/**  
 
-sendo o ** o gênero do filme/série que se queira procurar, por exemplo http://localhost:8000/popular/fantasy irá procurar os top 50 filmes/séries de fantasia, http://localhost:8000/popular/fantasy,horror irá procurar os top 50 de fantasia e horror
+Sendo o ** o gênero do filme/série que se queira procurar, por exemplo http://localhost:8000/popular/fantasy irá procurar os top 50 filmes/séries de fantasia, http://localhost:8000/popular/fantasy,horror irá procurar os top 50 de fantasia e horror
 
 os possiveis gêneros que se podem procurar são:
 * sci-fi
@@ -29,13 +29,13 @@ os possiveis gêneros que se podem procurar são:
 * comedy
 * superhero
 
-os dados que o API dá scrape na pagina de top250 são:
+Os dados que o API dá scrape na pagina de top250 são:
 * nome do filme
 * ano de estreia
 * o score de imdb(0 a 10)
 * o link para à pagina imdb
 
-os dados que o API dá scrape na pagina de top 50 filmes e programas de tv segundo a popularidade são:
+Os dados que o API dá scrape na pagina de top 50 filmes e programas de tv segundo a popularidade são:
 * nome
 * ano de estreia, ou no caso de serie ano de estreia e de final, séries que ainda não acabaram só têm ano de estreia
 * imdb score (0 a 10)
