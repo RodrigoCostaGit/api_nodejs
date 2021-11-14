@@ -31,13 +31,13 @@ app.get("/topmovies",(req,res)=>{
 
         $("tr",html).slice(1).each(function(){
             
-            const titulo = $(this).find(".titleColumn").find("a").text()
+            const title = $(this).find(".titleColumn").find("a").text()
             const score = $(this).find("strong").text()
-            const ano = $(this).find(".secondaryInfo").text()
+            const year = $(this).find(".secondaryInfo").text()
             const link = $(this).find(".titleColumn").find("a").attr("href")
             movieList.push({
-                "nome" : titulo,
-                "ano": ano,
+                "nome" : title,
+                "ano": year,
                 "score" : score,
                 "link":"https://www.imdb.com/"+link,
 
@@ -57,9 +57,9 @@ app.get("/popular/:nomeGenero",(req,res)=>{
 
     const popularList = []
 
-    const generoFilme = req.params.nomeGenero
+    const movieGenre = req.params.nomeGenero
 
-    generoUrl=baseLink+generoFilme
+    generoUrl=baseLink+movieGenre
     axios.get(generoUrl)
     .then((response)=>{
         const html = response.data
@@ -67,22 +67,16 @@ app.get("/popular/:nomeGenero",(req,res)=>{
 
         $(".lister-item",html).each(function(){
             const name = $(this).find(".lister-item-header").find("a").text()
-            const ano = $(this).find(".lister-item-year").text()
+            const year = $(this).find(".lister-item-year").text()
             const link = $(this).find(".lister-item-header").find("a").attr("href")
-            const score2 = $(this).find("strong").text()
+            const score = $(this).find("strong").text()
             const scoremeta=$(this).find(".metascore").text().trim()
             var genres = $(this).find(".genre").text().trim()
-            var listGenres=[]
-            // genres.forEach(b=>{
-            //     var genreLink
-            //     genreLink="<a href=\"https://www.imdb.com/search/title/?genres=\"+b>b</a>"
-            //     listGenres.push(genreLink)
-            // })
 
             popularList.push({
                 "nome":name,
-                "ano":ano,  
-                "imbd score":score2,
+                "ano":year,  
+                "imbd score":score,
                 "Metascore":scoremeta,
                 "gêneros":genres,
                 "link":"https://www.imdb.com/"+link,
@@ -90,14 +84,13 @@ app.get("/popular/:nomeGenero",(req,res)=>{
             })
         })
         res.json(popularList)
-    })
+    }).catch((err) => console.log(err))
 
 
 })
 
+
+
 app.listen(PORT,() => console.log("server running on PORT ${PORT}"))
 
 
-//ideas: make a readme.file
-//explain everything on a good json on the index file
-//make a way to load more than 50 at a time
