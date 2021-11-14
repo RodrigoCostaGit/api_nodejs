@@ -51,11 +51,13 @@ app.get("/topmovies",(req,res)=>{
 })
 
 
-app.get("/popular/:nomeGenero",(req,res)=>{
+app.get("/popular/:nomeGenero/",(req,res)=>{
 
     const baseLink="https://www.imdb.com/search/title/?genres="
 
     const popularList = []
+
+    const size = parseInt(req.params.size)
 
     const generoFilme = req.params.nomeGenero
 
@@ -73,11 +75,7 @@ app.get("/popular/:nomeGenero",(req,res)=>{
             const scoremeta=$(this).find(".metascore").text().trim()
             var genres = $(this).find(".genre").text().trim()
             var listGenres=[]
-            // genres.forEach(b=>{
-            //     var genreLink
-            //     genreLink="<a href=\"https://www.imdb.com/search/title/?genres=\"+b>b</a>"
-            //     listGenres.push(genreLink)
-            // })
+
 
             popularList.push({
                 "nome":name,
@@ -95,9 +93,55 @@ app.get("/popular/:nomeGenero",(req,res)=>{
 
 })
 
+// app.get("/upcoming",(req,res)=>{
+
+//     const link = "https://www.imdb.com/calendar/?ref_=nv_mv_cal"
+
+//     const listUpcoming = []
+//     axios.get(link)
+//     .then((response)=>{
+//         const html = response.data
+//         const $ = cheerio.load(html)
+//         var count = 0
+//         $("main").find("ul").each(function(){
+//             movieList=[]
+//             $(this).find("li").each(function(){
+//                 movieList.push($(this).text())
+//             })
+//             var name = $(this).find("h4")[count].text()
+//             count= count+1
+//             listUpcoming.push({
+//                 name:movieList
+//             })
+//         })
+//         res.json(listUpcoming)
+//     })
+// })
+
+app.get("/upcoming",(req,res)=>{
+
+    const link = "https://www.imdb.com/calendar/?ref_=nv_mv_cal"
+
+    const listUpcoming = []
+    axios.get(link)
+    .then((response)=>{
+        const html = response.data
+        const $ = cheerio.load(html)
+        var count = 0
+        var teste=[]
+        $("main").find("ul").each(function(){
+            teste.push(($(this).text()))
+        })
+        res.json($("main").find("h4").text())
+    })
+})
+
+
+
+
 app.listen(PORT,() => console.log("server running on PORT ${PORT}"))
 
 
 //ideas: make a readme.file
 //explain everything on a good json on the index file
-//make a way to load more than 50 at a time
+//make a way to load more than 50 at a tim
