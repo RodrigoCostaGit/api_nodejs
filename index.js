@@ -5,13 +5,25 @@ const cheerio = require("cheerio");
 
 const app=express();
 
-const movieList = []
+reviewSites=[
+    {
+        name:"guardian",
+        url:"https://www.theguardian.com/film+tone/reviews"
+    },
+    {
+        name:""
+
+    }
+]
+
+
 
 app.get("/",(req,res) => {
     res.json("welcome to my imdb API ")
 })
 
 app.get("/topmovies",(req,res)=>{
+    const movieList = []
     axios.get("https://www.imdb.com/chart/top/?ref_=nv_mv_250")
     .then((response) =>{
         const html = response.data
@@ -56,14 +68,22 @@ app.get("/popular/:nomeGenero",(req,res)=>{
             const name = $(this).find(".lister-item-header").find("a").text()
             const ano = $(this).find(".lister-item-year").text()
             const link = $(this).find(".lister-item-header").find("a").attr("href")
-            //const score = $(this).find(".ratings-bar").find(".ratings-imdb-rating").find("strong").text()
             const score2 = $(this).find("strong").text()
-            const scoremeta=$(this).find(".metascore").text()
+            const scoremeta=$(this).find(".metascore").text().trim()
+            var genres = $(this).find(".genre").text().trim()
+            var listGenres=[]
+            // genres.forEach(b=>{
+            //     var genreLink
+            //     genreLink="<a href=\"https://www.imdb.com/search/title/?genres=\"+b>b</a>"
+            //     listGenres.push(genreLink)
+            // })
+
             popularList.push({
                 "nome":name,
                 "ano":ano,  
                 "imbd score":score2,
                 "Metascore":scoremeta,
+                "gêneros":genres,
                 "link":"https://www.imdb.com/"+link,
 
             })
@@ -77,6 +97,6 @@ app.get("/popular/:nomeGenero",(req,res)=>{
 app.listen(PORT,() => console.log("server running on PORT ${PORT}"))
 
 
- 
-//idea: instead of having a full dict with genres and links, if the only thing that changes in the link itself is the keyword
-// have the user input add itself on the link and searchh using that.
+//ideas: make a readme.file
+//explain everything on a good json on the index file
+//make a way to load more than 50 at a time
