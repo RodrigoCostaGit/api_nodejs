@@ -5,31 +5,23 @@ const cheerio = require("cheerio");
 
 const app=express();
 
-reviewSites=[
-    {
-        name:"guardian",
-        url:"https://www.theguardian.com/film+tone/reviews"
-    },
-    {
-        name:""
-
-    }
-]
-
-
 
 app.get("/",(req,res) => {
-    res.json("welcome to my imdb API ")
+    res.json("Bem vindo ao meu API de IMDB, use http://localhost:8000/topmovies para aceder aos top250 filmes do imdb. "+
+    "Para procurar os top50 filmes/séries do momento use http://localhost:8000/popular/**, sendo o ** o gênero que queira procurar, por exemplo: http://localhost:8000/popular/fantasy ou http://localhost:8000/popular/fantasy,horror "+
+    " Leia o ficheiro README para mais informações, incluindo a lista completa de gêneros de filmes/tv "
+    )
 })
 
-app.get("/topmovies",(req,res)=>{
-    const movieList = []
-    axios.get("https://www.imdb.com/chart/top/?ref_=nv_mv_250")
+//para aceder a subpagina dos top250
+app.get("/topmovies",(req,res)=>{ 
+    const movieList = [] // lista onde vai ficar armazenado todos os filmes
+    axios.get("https://www.imdb.com/chart/top/?ref_=nv_mv_250") //obitem o conteudo html da pagina
     .then((response) =>{
         const html = response.data
         const $ =cheerio.load(html)
 
-        $("tr",html).slice(1).each(function(){
+        $("tr",html).slice(1).each(function(){ // dá filter ao conteudo html, slice é usado para começar a partir do segundo resultado, visto que o primeiro não tinha conteudo 
             
             const title = $(this).find(".titleColumn").find("a").text()
             const score = $(this).find("strong").text()
@@ -50,16 +42,13 @@ app.get("/topmovies",(req,res)=>{
     }).catch((err) => console.log(err))
 })
 
-
-app.get("/popular/:nomeGenero",(req,res)=>{
+// para aceder a pagina dos top 50 filmes e programas de tv
+app.get("/popular/:nomeGenero",(req,res)=>{ // :nomeGenero é usado para procurar segundo o genero que o utilizador quer
 
     const baseLink="https://www.imdb.com/search/title/?genres="
-
     const popularList = []
-
     const movieGenre = req.params.nomeGenero
-
-    generoUrl=baseLink+movieGenre
+    generoUrl=baseLink+movieGenre //junta o link base com o gênero, criando assim o link completo 
     axios.get(generoUrl)
     .then((response)=>{
         const html = response.data

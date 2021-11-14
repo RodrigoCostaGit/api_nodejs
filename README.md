@@ -1,15 +1,15 @@
 O projeto consiste num API do website IMDb(https://www.imdb.com/), uma base de dados de informações de filmes e televisão.
 
-O API de momento dá scrape a 2 paginas diferentes, no entanto, é possivel mudar o URL de forma a juntar tipos de filmes na pesquisa
+O API de momento dá scrape a 2 páginas diferentes, no entanto, é possivel mudar o URL de forma a juntar tipos de filmes na pesquisa
 
-foi utilizado express, axios e cheerios para o desenvolvimento do projeto, a  linguagem utilizada para o desenvolvimento foi javascript
+foi utilizado express, axios e cheerios para o desenvolvimento do projeto, a linguagem utilizada para o desenvolvimento foi javascript
 
-As subpaginas que o projeto consegue dar scrape são:
+As subpáginas que o projeto consegue dar scrape são:
     
 * os top 250 filmes segundo o imdb rating  https://www.imdb.com/chart/top/?ref_=nv_mv_250
 * os top 50 filmes e programas de tv segundo a popularidade https://www.imdb.com/search/title/?genres
 
-As subpaginas para acedar aos dados são:
+As subpáginas para acedar aos dados são:
 * http://localhost:8000/topmovies
 * http://localhost:8000/popular/**  
 
