@@ -31,14 +31,15 @@ app.get("/topmovies",(req,res)=>{
 
         $("tr",html).slice(1).each(function(){
             
-            /*const name = $(this).attr("href","title")*/
             const titulo = $(this).find(".titleColumn").find("a").text()
             const score = $(this).find("strong").text()
+            const ano = $(this).find(".secondaryInfo").text()
+            const link = $(this).find(".titleColumn").find("a").attr("href")
             movieList.push({
-                /*"nome2" : titulo2  returns all the text from tr*/
                 "nome" : titulo,
-                "score" : score
-
+                "ano": ano,
+                "score" : score,
+                "link":"https://www.imdb.com/"+link,
 
 
                 
