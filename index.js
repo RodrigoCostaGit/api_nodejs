@@ -2,15 +2,23 @@ const PORT = 8000
 const express = require("express");
 const axios = require("axios").default;
 const cheerio = require("cheerio");
-
+const path = require("path");
 const app=express();
 
+app.set("views",path.join(__dirname, "views"));
+
+app.set("view engine", "pug");
+
+app.use(express.static("./public"))
 
 app.get("/",(req,res) => {
-    res.json("Bem vindo ao meu API de IMDB, use http://localhost:8000/topmovies para aceder aos top250 filmes do imdb. "+
-    "Para procurar os top50 filmes/séries do momento use http://localhost:8000/popular/**, sendo o ** o gênero que queira procurar, por exemplo: http://localhost:8000/popular/fantasy ou http://localhost:8000/popular/fantasy,horror "+
-    " Leia o ficheiro README para mais informações, incluindo a lista completa de gêneros de filmes/tv "
-    )
+    // res.json("Bem vindo ao meu API de IMDB, use http://localhost:8000/topmovies para aceder aos top250 filmes do imdb. "+
+    // "Para procurar os top50 filmes/séries do momento use http://localhost:8000/popular/**, sendo o ** o gênero que queira procurar, por exemplo: http://localhost:8000/popular/fantasy ou http://localhost:8000/popular/fantasy,horror "+
+    // " Leia o ficheiro README para mais informações, incluindo a lista completa de gêneros de filmes/tv "
+    // )
+
+    res.render("index",{title:"home"});
+
 })
 
 //para aceder a subpagina dos top250

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "ui": "browser-sync start --config bs-config.js"
   },
   "repository": {
     "type": "git",
@@ -17,9 +18,14 @@
   },
   "homepage": "https://github.com/RodrigoCostaGit/api_nodejs#readme",
   "dependencies": {
+    "-": "^0.0.1",
     "axios": "^0.24.0",
     "cheerio": "^1.0.0-rc.10",
     "express": "^4.17.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.27.7"
   }
 }
